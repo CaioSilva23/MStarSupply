@@ -12,6 +12,9 @@ class MercadoriaModel(db.Model):
     tipo = db.Column(db.String(100), nullable=False)
     descricao = db.Column(db.Text, nullable=False)
 
+    operacoes = db.relationship('OperacaoModel', backref='mercadoria', lazy=True)
+
+
     def __init__(self, nome, numero_registro, fabricante, tipo, descricao):
         self.nome = nome
         self.numero_registro = numero_registro
@@ -27,8 +30,12 @@ class MercadoriaModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def update_to_db(self):
+    def update_to_db(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
         db.session.commit()
+        return self
+
 
 class MercadoriaSchema(Schema):
     id = fields.Int(dump_only=True)

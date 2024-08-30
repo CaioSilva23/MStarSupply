@@ -27,17 +27,18 @@ class Mercadoria(MethodView):
     @blp.response(200, MercadoriaSchema)
     def put(self, data, id):
         data = request.get_json()
-
         mercadoria = MercadoriaModel.query.get_or_404(id)
         
-        mercadoria.nome = data.get('nome', mercadoria.nome)
-        mercadoria.numero_registro = data.get('numero_registro', mercadoria.numero_registro)
-        mercadoria.fabricante = data.get('fabricante', mercadoria.fabricante)
-        mercadoria.tipo = data.get('tipo', mercadoria.tipo)
-        mercadoria.descricao = data.get('descricao', mercadoria.descricao)
-
-        mercadoria.update_to_db()
-
+        try:
+            mercadoria.update_to_db(**data)
+        except IntegrityError:
+                abort(
+                400, 
+                message="Uma mercadoria com esse nome ja existe."
+            )
+        except SQLAlchemyError:
+            return {"msg": "Ocorreu um erro ao atualziar a mercadoria."}, 500
+        
         return mercadoria
 
 

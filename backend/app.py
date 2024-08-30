@@ -5,7 +5,7 @@ from utils import db
 
 import models
 
-# from resources.item import blp as ItemBlueprint
+from resources.operacao import blp as OperacaoBlueprint
 from resources.mercadoria import blp as MercadoriaBlueprint
 
 
@@ -28,7 +28,7 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
 
-    # api.register_blueprint(ItemBlueprint)
+    api.register_blueprint(OperacaoBlueprint)
     api.register_blueprint(MercadoriaBlueprint)
 
     return app
