@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Sidenav from '../components/Sidenav';
-import Navbar from "../components/Navbar"
+import Sidenav from '../../components/Sidenav';
+import Navbar from "../../components/Navbar"
 import Grid from '@mui/material/Grid2';
-import ListarMercadorias from './mercadorias/ListarMercadorias';
+import ListarMercadorias from './ListarMercadorias';
 
 export default function Mercadorias() {
   return (

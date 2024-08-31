@@ -10,19 +10,16 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from "@mui/material/Typography";
 import Divider from '@mui/material/Divider';
-import { getMercadoriasApi, deleteMercadoriaApi } from '../../services/api';
+import { getOperacoesApi, getMercadoriasByIdApi } from '../../services/api';
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Modal from '@mui/material/Modal';
-import CadastrarMercadoria from "./CadastrarMercadoria"
-import EditarMercadoria from "./EditarMercadoria"
+import CadastrarOperacao from "./CadastroOperacao"
 
 const style = {
     position: 'absolute',
@@ -37,34 +34,35 @@ const style = {
   };
 
 const columns = [
-  { id: 'nome', label: 'Nome', minWidth: 170 },
   {
-    id: 'descricao',
-    label: 'Descricao',
+    id: 'tipo_operacao',
+    label: 'Tipo de Operacao',
     minWidth: 170,
     align: 'left',
-    format: (value) => value.toLocaleString('pt-br'),
-  },
-  {
-    id: 'tipo',
-    label: 'Tipo',
-    minWidth: 170,
-    align: 'left',
-    format: (value) => value.toLocaleString('pt-br'),
   },  
   {
-    id: 'fabricante',
-    label: 'Fabricante',
+    id: 'mercadoria_id',
+    label: 'Mercadoria',
     minWidth: 170,
     align: 'left',
-    format: (value) => value.toLocaleString('pt-br'),
+  },  
+  {
+    id: 'quantidade',
+    label: 'Quantidade',
+    minWidth: 170,
+    align: 'left',
   },
   {
-    id: 'numero_registro',
-    label: 'Numero do Registro',
+    id: 'local',
+    label: 'Local',
     minWidth: 170,
     align: 'left',
-    format: (value) => value.toLocaleString('pt-br'),
+  },
+  {
+    id: 'data_hora',
+    label: 'Data e hora',
+    minWidth: 170,
+    align: 'left',
   },
   {
     label: 'Ações',
@@ -73,24 +71,28 @@ const columns = [
   },
 ];
 
+function formatDateTime(dateTimeString) {
+  const date = new Date(dateTimeString);
+
+  // Obter as partes da data e hora
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês começa de 0
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  // Formatar como "DD/MM/YYYY às HH:mm"
+  return `${day}/${month}/${year} às ${hours}:${minutes}`;
+}
 
 export default function ListarMercadorias() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
-  const [mercadorias, setMercadorias] = useState([]);
-  const [formEdit, setFormEdit] = useState("")
-
-
+  const [operacoes, setOperacoes] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-
-  const [openEdit, setOpenEdit] = useState(false)
-  const handleOpenEdit = () => setOpenEdit(true);
-  const handleCloseEdit = () => setOpenEdit(false);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -100,64 +102,29 @@ export default function ListarMercadorias() {
     setPage(0);
   };
 
-  const AlertDeletarMercadoria = (id) => {
-    Swal.fire({
-      title: "Tem certeza ?",
-      text: "Você não poderá reverter isso!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sim, deletar!",
-    }).then((result) => {
-      if (result.value) {
-        deletar(id);
-      }
-    });
-  };
-
-  const deletar = async (id) => {
-    try {
-        const response = await deleteMercadoriaApi(id);
-        Swal.fire("Deletado!", "A mercadoria foi excluída..", "success");
-    } catch (error) {
-        Swal.fire("Erro!", error.response.data.message, "error");
-    } finally {
-    
-    }
-    fetchMercadorias();
-  };
-
   const filterData = (v) => {
     if (v) {
-      setMercadorias([v]);
+      setOperacoes([v]);
     } else {
-        setMercadorias([]);
-        fetchMercadorias();
+        setOperacoes([]);
+        fetchOperacoes();
     }
   };
-  const fetchMercadorias = async () => {
+
+  const fetchOperacoes = async () => {
     try {
-      const response = await getMercadoriasApi();
-      setMercadorias(response.data);
+      const response = await getOperacoesApi();
+      setOperacoes(response.data);
     } catch (error) {
-      console.error('Erro ao buscar mercadorias:', error);
+      console.error('Erro ao buscar operacoes:', error);
     } finally {
       setLoading(false);
     }
   };
 
 
-  const editData = (data) => {
-    console.log(data)
-
-    setFormEdit(data);
-    handleOpenEdit();
-  }
-
-
   useEffect(() => {
-    fetchMercadorias();
+    fetchOperacoes();
   }, []);
 
   return (
@@ -170,17 +137,7 @@ export default function ListarMercadorias() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CadastrarMercadoria closeEvent={handleClose} buscar={fetchMercadorias} />
-        </Box>
-      </Modal>
-      <Modal
-        open={openEdit}
-        onClose={handleCloseEdit}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <EditarMercadoria closeEvent={handleCloseEdit} mercadoria={formEdit} buscar={fetchMercadorias}/>
+          <CadastrarOperacao closeEvent={handleClose} buscar={fetchOperacoes}/>
         </Box>
       </Modal>
     </div>
@@ -191,7 +148,7 @@ export default function ListarMercadorias() {
             component="div"
             sx={{ padding: "20px" }}
           >
-            Products List
+            Operações de entradas e saídas
         </Typography>
         <Divider />
           <Box height={10} />
@@ -199,10 +156,10 @@ export default function ListarMercadorias() {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
-              options={mercadorias}
+              options={operacoes}
               sx={{ width: 300 }}
               onChange={(e, v) => filterData(v)}
-              getOptionLabel={(rows) => rows.nome || ""}
+              getOptionLabel={(rows) => rows.id || ""}
               renderInput={(params) => (
                 <TextField {...params} size="small" label="Procurar mercadoria" />
               )}
@@ -217,7 +174,7 @@ export default function ListarMercadorias() {
             </Button>
           </Stack>
           <Box height={10} />
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 400 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -233,26 +190,30 @@ export default function ListarMercadorias() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mercadorias
+            {operacoes
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} >
-
-                    <TableCell key={row.id} align="left">
-                        {row.nome}
+                  <TableRow 
+                  hover role="checkbox" 
+                  tabIndex={-1}
+                  style={{
+                    backgroundColor: row.tipo_operacao === 'entrada' ? '#d0f0c0' : row.tipo_operacao === 'saida' ? '#f4cccc' : 'inherit'
+                  }} >
+                    <TableCell key={row.id} align="left" >
+                        {row.tipo_operacao.toUpperCase()}
                     </TableCell>
                     <TableCell key={row.id} align="left">
-                        {row.descricao}
+                        {row.mercadoria_id}
                     </TableCell>
                     <TableCell key={row.id} align="left">
-                        {row.tipo}
+                        {row.quantidade}
                     </TableCell>
                     <TableCell key={row.id} align="left">
-                        {row.fabricante}
+                        {row.local}
                     </TableCell>
                     <TableCell key={row.id} align="left">
-                        {row.numero_registro}
+                        {formatDateTime(row.data_hora)}
                     </TableCell>
                     <TableCell align="left">
                           <Stack spacing={2} direction="row">
@@ -263,19 +224,9 @@ export default function ListarMercadorias() {
                                 cursor: "pointer",
                               }}
                               className="cursor-pointer"
-                              onClick={() => {
-                                  editData(row)
-                              }}
-                            />
-                            <DeleteIcon
-                              style={{
-                                fontSize: "20px",
-                                color: "darkred",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                AlertDeletarMercadoria(row.id);
-                              }}
+                              // onClick={() => {
+                              //     editData(row)
+                              // }}
                             />
                           </Stack>
                         </TableCell>
@@ -288,7 +239,7 @@ export default function ListarMercadorias() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={mercadorias.length}
+        count={operacoes.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

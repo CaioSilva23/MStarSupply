@@ -13,6 +13,10 @@ export const getMercadoriasApi = () => {
   return api.get("/mercadoria");
 };
 
+export const getMercadoriasByIdApi = (id) => {
+  return api.get(`/mercadoria/${id}`);
+};
+
 export const postMercadoriasApi = (data) => {
   return api.post("/mercadoria", data);
 };
@@ -25,3 +29,12 @@ export const updateMercadoriaApi = (id, data) => {
   return api.put(`/mercadoria/${id}`, data)
 }
 
+
+// OPERACOES
+export const getOperacoesApi = () => {
+  return api.get("/operacao");
+};
+
+export const postOperacoesApi = (data) => {
+  return api.post("/operacao", data);
+};

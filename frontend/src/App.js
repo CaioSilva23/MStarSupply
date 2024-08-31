@@ -1,8 +1,8 @@
 import React from 'react';
 import {Routes, Route, BrowserRouter} from "react-router-dom"
 import Home from "./pages/Home"
-import Mercadorias from "./pages/Mercadorias"
-import Operacoes from "./pages/Operacoes"
+import Mercadorias from "./pages/mercadorias/Mercadorias"
+import Operacoes from "./pages/operacoes/Operacoes"
 
 
 function App() {
