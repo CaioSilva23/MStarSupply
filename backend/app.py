@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_smorest import Api
 
 from utils import db
@@ -11,6 +12,7 @@ from resources.mercadoria import blp as MercadoriaBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
+    CORS(app)
     app.config["API_TITLE"] = "Morning Star REST API"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.3"

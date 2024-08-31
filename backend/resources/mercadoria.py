@@ -17,9 +17,17 @@ class Mercadoria(MethodView):
         return mercadoria
 
     def delete(self, id):
-        mercadoria = MercadoriaModel.query.get_or_404(id)        
-        if mercadoria: 
+        mercadoria = MercadoriaModel.query.get_or_404(id)      
+
+        try:
             mercadoria.delete_from_db()
+        except IntegrityError:
+                abort(
+                400, 
+                message="Erro, essa mercadoria está vinculada a uma operação."
+            )
+        except SQLAlchemyError:
+            return {"msg": "Ocorreu um erro ao deletar a mercadoria."}, 500
         
         return {'message': 'Mercadoria deletada.'}
 
