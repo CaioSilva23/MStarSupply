@@ -21,7 +21,7 @@ export const deleteMercadoriaApi = (id) => {
   return api.delete(`/mercadoria/${id}`)
 }
 
-export const updateMercadoriaApi = (id) => {
-  return api.put(`/mercadoria/${id}`)
+export const updateMercadoriaApi = (id, data) => {
+  return api.put(`/mercadoria/${id}`, data)
 }
 

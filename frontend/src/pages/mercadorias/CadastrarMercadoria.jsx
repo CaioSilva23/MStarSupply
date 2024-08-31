@@ -22,11 +22,9 @@ export default function CadastrarMercadoria({closeEvent, buscar}) {
 
 
   const cadastrar = async () => {
-    
-    
+        
     if (!nome || !descricao || !tipo || !fabricante || !numero_registro) {
-      closeEvent();
-      Swal.fire("Erro!", "Preencha todos os campos!", "warning");
+      alert("Preencha todos os campos!")
       return
     };
 

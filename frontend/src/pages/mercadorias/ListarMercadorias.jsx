@@ -23,7 +23,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Modal from '@mui/material/Modal';
 import CadastrarMercadoria from "./CadastrarMercadoria"
 import { useAppStore } from '../../appStore';
-
+import EditarMercadoria from "./EditarMercadoria"
 
 const style = {
     position: 'absolute',
@@ -68,7 +68,7 @@ const columns = [
     format: (value) => value.toLocaleString('pt-br'),
   },
   {
-    label: 'Acoes',
+    label: 'Ações',
     minWidth: 170,
     align: 'left',
   },
@@ -79,13 +79,19 @@ export default function ListarMercadorias() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
-  // const [mercadorias, setMercadorias] = useState([]);
   const setMercadorias = useAppStore((state) => state.setRows)
   const mercadorias = useAppStore((state) => state.rows)
+  const [formEdit, setFormEdit] = useState("")
+
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
+  const [openEdit, setOpenEdit] = useState(false)
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -143,6 +149,15 @@ export default function ListarMercadorias() {
     }
   };
 
+
+  const editData = (data) => {
+    console.log(data)
+
+    setFormEdit(data);
+    handleOpenEdit();
+  }
+
+
   useEffect(() => {
     fetchMercadorias();
   }, []);
@@ -157,7 +172,17 @@ export default function ListarMercadorias() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CadastrarMercadoria closeEvent={handleClose} buscar={fetchMercadorias}/>
+          <CadastrarMercadoria closeEvent={handleClose} buscar={fetchMercadorias} />
+        </Box>
+      </Modal>
+      <Modal
+        open={openEdit}
+        onClose={handleCloseEdit}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <EditarMercadoria closeEvent={handleCloseEdit} mercadoria={formEdit} buscar={fetchMercadorias}/>
         </Box>
       </Modal>
     </div>
@@ -190,7 +215,7 @@ export default function ListarMercadorias() {
               sx={{ flexGrow: 1 }}
             ></Typography>
             <Button variant="contained" onClick={handleOpen} endIcon={<AddCircleIcon />}>
-              Add
+              Novo
             </Button>
           </Stack>
           <Box height={10} />
@@ -240,7 +265,9 @@ export default function ListarMercadorias() {
                                 cursor: "pointer",
                               }}
                               className="cursor-pointer"
-                              // onClick={() => editUser(row.id)}
+                              onClick={() => {
+                                  editData(row)
+                              }}
                             />
                             <DeleteIcon
                               style={{
