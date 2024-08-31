@@ -191,7 +191,7 @@ export default function ListarMercadorias() {
             component="div"
             sx={{ padding: "20px" }}
           >
-            Products List
+            Mercadorias cadastradas
         </Typography>
         <Divider />
           <Box height={10} />

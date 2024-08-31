@@ -38,3 +38,9 @@ export const getOperacoesApi = () => {
 export const postOperacoesApi = (data) => {
   return api.post("/operacao", data);
 };
+
+export const getOperacoesMesApi = (id) => {
+  return api.get(`/operacao/mes/${id}`);
+};
+
+

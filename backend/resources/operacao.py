@@ -23,7 +23,7 @@ class Operacao(MethodView):
 class OperacaoList(MethodView):
     @blp.response(200, OperacaoSchema(many=True))
     def get(self):
-        return OperacaoModel.query.all()
+        return OperacaoModel.query.order_by("data_hora")
     
     @blp.arguments(OperacaoSchema)
     @blp.response(201, OperacaoSchema)
