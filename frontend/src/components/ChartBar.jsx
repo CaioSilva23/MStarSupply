@@ -45,7 +45,7 @@ export default function ChartBar({data, mes, nome}) {
             <Button variant="contained" onClick={handleExportPDF}>Exportar como PDF</Button>
         </>
     ) : (
-        <p>Nenhum dado disponível para mostrar</p>
+        <p>Selecione uma mercadoria acima</p>
     )}
 </>
   );

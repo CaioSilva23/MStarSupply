@@ -13,9 +13,6 @@ class MercadoriaModel(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     quantidade = db.Column(db.Integer, nullable=True, default=0)
 
-    operacoes = db.relationship('OperacaoModel', backref='mercadoria', lazy=True)
-
-
     def __init__(self, nome, numero_registro, fabricante, tipo, descricao):
         self.nome = nome
         self.numero_registro = numero_registro

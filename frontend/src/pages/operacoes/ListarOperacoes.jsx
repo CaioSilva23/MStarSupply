@@ -158,7 +158,7 @@ export default function ListarMercadorias() {
                 <TableCell component="th" scope="row">
                   {row.tipo_operacao.toUpperCase()}
                 </TableCell>
-                <TableCell align="left">{row.mercadoria_id}</TableCell>
+                <TableCell align="left">{row.mercadoria}</TableCell>
                 <TableCell align="left">{row.quantidade}</TableCell>
                 <TableCell align="left">{row.local}</TableCell>
                 <TableCell align="left">{formatDateTime(row.data_hora)}</TableCell>

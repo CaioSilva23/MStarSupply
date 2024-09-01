@@ -1,4 +1,5 @@
 FROM python:3.10
+LABEL maintainer="caio.batista97@outlook.com"
 
 EXPOSE 5000
 

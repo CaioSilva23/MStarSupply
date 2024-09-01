@@ -50,23 +50,7 @@ class OperacaoList(MethodView):
 class OperacoesPorMes(MethodView):
     @blp.response(200, EntradasSaidasMesSchema(many=True))
     def get(self, id):
-        dados = db.session.query(
-            func.strftime('%m', OperacaoModel.data_hora).label('mes'),
-            MercadoriaModel.nome.label('mercadoria'),
-            func.sum(case(
-                (OperacaoModel.tipo_operacao == 'entrada', OperacaoModel.quantidade),
-                else_=0
-            )).label('entrada'),
-            func.sum(case(
-                (OperacaoModel.tipo_operacao == 'saida', OperacaoModel.quantidade),
-                else_=0
-            )).label('saida')
-        ).filter(
-            OperacaoModel.mercadoria_id == id,
-        ).group_by(
-            func.strftime('%m', OperacaoModel.data_hora)
-        ).all()
-
+        dados = OperacaoModel.get_opercao_mes(OperacaoModel, id=id)
         return dados, 200
 
 
@@ -74,20 +58,5 @@ class OperacoesPorMes(MethodView):
 class OperacoesTotais(MethodView):
     @blp.response(200, EntradasSaidasMesSchema(many=True))
     def get(self):
-
-        dados = db.session.query(
-            MercadoriaModel.nome.label('mercadoria'),
-            func.sum(case(
-                (OperacaoModel.tipo_operacao == 'entrada', OperacaoModel.quantidade),
-                else_=0
-            )).label('entrada'),
-            func.sum(case(
-                (OperacaoModel.tipo_operacao == 'saida', OperacaoModel.quantidade),
-                else_=0
-            )).label('saida')
-        ).join(
-            MercadoriaModel, OperacaoModel.mercadoria_id == MercadoriaModel.id
-        ).group_by(
-            MercadoriaModel.nome
-        ).all()
+        dados = OperacaoModel.operacoes_totais(OperacaoModel)
         return dados, 200

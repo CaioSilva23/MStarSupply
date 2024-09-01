@@ -42,7 +42,7 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Morning Star
+            MStarSupply
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

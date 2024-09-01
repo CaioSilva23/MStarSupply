@@ -1,10 +1,27 @@
 version: '3'
 
 services:
-  web:
+  flask:
     build: ./backend
-    container_name: backend
+    container_name: flask_backend
+    env_file:
+        - ./backend/.env
     ports:
       - "5000:5000"
     volumes:
       - ./backend:/app
+    depends_on:
+      - db
+  db:
+    container_name: flask_postgres
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+        - ./backend/.env
+    ports:
+        - "${POSTGRES_PORT}:5432"
+    volumes:
+        - pg_flask2:/var/lib/postgresql/data
+
+volumes:
+  pg_flask2:
