@@ -1,0 +1,640 @@
+{
+	"info": {
+		"_postman_id": "9a1a41aa-efc3-4029-9a33-00efaf9c5993",
+		"name": "FullStack application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25270683"
+	},
+	"item": [
+		{
+			"name": "Mercadoria",
+			"item": [
+				{
+					"name": "Listar mercadorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/mercadoria"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "340"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"descricao\": \"Arroz Parbolizado\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 1,\n        \"nome\": \"Arroz\",\n        \"numero_registro\": \"1316161616\",\n        \"tipo\": \"Tipo 1\"\n    },\n    {\n        \"descricao\": \"Arroz Branco\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 2,\n        \"nome\": \"Arroz Branco\",\n        \"numero_registro\": \"13148949496\",\n        \"tipo\": \"Tipo 2\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Cadastrar mercadoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/mercadoria"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias Copy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Maximo\",\n    \"id\": 2,\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Deletar mercadoria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Arroz Parbolizado\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz\",\n    \"numero_registro\": \"1316161616\",\n    \"tipo\": \"Tipo 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/mercadoria/2"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias Copy",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"descricao\": \"Arroz Parbolizado\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz\",\n    \"numero_registro\": \"1316161616\",\n    \"tipo\": \"Tipo 1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:38:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Mercadoria deletada.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar mercadoria pelo id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Arroz Parbolizado\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz\",\n    \"numero_registro\": \"1316161616\",\n    \"tipo\": \"Tipo 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/mercadoria/3"
+					},
+					"response": [
+						{
+							"name": "Deletar mercadoria Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"descricao\": \"Arroz Parbolizado\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz\",\n    \"numero_registro\": \"1316161616\",\n    \"tipo\": \"Tipo 1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria/3"
+							},
+							"status": "NOT FOUND",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:32:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"status\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Atualizar mercadoria",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Arroz Branco\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/mercadoria/2"
+					},
+					"response": [
+						{
+							"name": "Deletar mercadoria Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"descricao\": \"Arroz Parbolizado\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz\",\n    \"numero_registro\": \"1316161616\",\n    \"tipo\": \"Tipo 1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria/3"
+							},
+							"status": "NOT FOUND",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:32:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"status\": \"Not Found\"\n}"
+						},
+						{
+							"name": "Listar mercadoria pelo id Copy",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fabricante\": \"Tio Joao 333\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 01:08:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "159"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Tio Joao 333\",\n    \"id\": 1,\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Operacoes",
+			"item": [
+				{
+					"name": "Listar Operacoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url_flask}}/operacao"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "340"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"descricao\": \"Arroz Parbolizado\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 1,\n        \"nome\": \"Arroz\",\n        \"numero_registro\": \"1316161616\",\n        \"tipo\": \"Tipo 1\"\n    },\n    {\n        \"descricao\": \"Arroz Branco\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 2,\n        \"nome\": \"Arroz Branco\",\n        \"numero_registro\": \"13148949496\",\n        \"tipo\": \"Tipo 2\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Listar op. por mes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url_flask}}/operacao/mes/1"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "340"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"descricao\": \"Arroz Parbolizado\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 1,\n        \"nome\": \"Arroz\",\n        \"numero_registro\": \"1316161616\",\n        \"tipo\": \"Tipo 1\"\n    },\n    {\n        \"descricao\": \"Arroz Branco\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 2,\n        \"nome\": \"Arroz Branco\",\n        \"numero_registro\": \"13148949496\",\n        \"tipo\": \"Tipo 2\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Listar op. totais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url_flask}}/operacao/totais"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "340"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"descricao\": \"Arroz Parbolizado\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 1,\n        \"nome\": \"Arroz\",\n        \"numero_registro\": \"1316161616\",\n        \"tipo\": \"Tipo 1\"\n    },\n    {\n        \"descricao\": \"Arroz Branco\",\n        \"fabricante\": \"Maximo\",\n        \"id\": 2,\n        \"nome\": \"Arroz Branco\",\n        \"numero_registro\": \"13148949496\",\n        \"tipo\": \"Tipo 2\"\n    }\n]"
+						},
+						{
+							"name": "Listar op. por mes Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url_flask}}/operacao/totais"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.10.14"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Sep 2024 13:22:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"entrada\": 4,\n        \"saida\": 1\n    }\n]"
+						},
+						{
+							"name": "Listar op. por mes Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url_flask}}/operacao/totais"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.10.14"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Sep 2024 13:29:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "157"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"entrada\": 331510,\n        \"mercadoria\": \"Arroz Branco\",\n        \"saida\": 100\n    },\n    {\n        \"entrada\": 500,\n        \"mercadoria\": \"TESTE\",\n        \"saida\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Cadastrar operacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipo_operacao\": \"saida\",\n    \"quantidade\": 10,\n    \"data_hora\": \"2024-08-30T12:45:30\",\n    \"local\": \"Centro\",\n    \"mercadoria_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url_flask}}/operacao"
+					},
+					"response": [
+						{
+							"name": "Listar mercadorias Copy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Maximo\",\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:5000/mercadoria"
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.4"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Aug 2024 00:27:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"descricao\": \"Arroz Branco\",\n    \"fabricante\": \"Maximo\",\n    \"id\": 2,\n    \"nome\": \"Arroz Branco\",\n    \"numero_registro\": \"13148949496\",\n    \"tipo\": \"Tipo 2\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
