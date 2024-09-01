@@ -220,68 +220,58 @@ export default function ListarMercadorias() {
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
+          <TableRow>
+            <TableCell align="left">Nome</TableCell>
+            <TableCell align="left">Descrição</TableCell>
+            <TableCell align="left">Estoque</TableCell>
+            <TableCell align="left">Tipo</TableCell>
+            <TableCell align="left">Fabricante</TableCell>
+            <TableCell align="left">Número de registro</TableCell>
+            <TableCell align="left">Acões</TableCell>
+          </TableRow>
           </TableHead>
           <TableBody>
-            {mercadorias
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} >
-
-                    <TableCell key={row.id} align="left">
-                        {row.nome}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.descricao}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.tipo}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.fabricante}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.numero_registro}
-                    </TableCell>
-                    <TableCell align="left">
-                          <Stack spacing={2} direction="row">
-                            <EditIcon
-                              style={{
-                                fontSize: "20px",
-                                color: "blue",
-                                cursor: "pointer",
-                              }}
-                              className="cursor-pointer"
-                              onClick={() => {
-                                  editData(row)
-                              }}
-                            />
-                            <DeleteIcon
-                              style={{
-                                fontSize: "20px",
-                                color: "darkred",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                AlertDeletarMercadoria(row.id);
-                              }}
-                            />
+            {mercadorias.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.nome}
+                  </TableCell>
+                  <TableCell align="left">{row.descricao}</TableCell>
+                  <TableCell align="left">{row.quantidade}</TableCell>
+                  <TableCell align="left">{row.tipo}</TableCell>
+                  <TableCell align="left">{row.fabricante}</TableCell>
+                  <TableCell align="left">{row.numero_registro}</TableCell>
+                  <TableCell align="left">
+                    <Stack spacing={2} direction="row">
+                      <EditIcon
+                        style={{
+                          fontSize: "20px",
+                          color: "blue",
+                          cursor: "pointer",
+                        }}
+                        className="cursor-pointer"
+                        onClick={() => {
+                            editData(row)
+                        }}
+                      />
+                      <DeleteIcon
+                        style={{
+                          fontSize: "20px",
+                          color: "darkred",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          AlertDeletarMercadoria(row.id);
+                        }}
+                      />
                           </Stack>
-                        </TableCell>
-                  </TableRow>
-                );
-              })}
+                  </TableCell>
+                </TableRow>
+            ))}
+
           </TableBody>
         </Table>
       </TableContainer>

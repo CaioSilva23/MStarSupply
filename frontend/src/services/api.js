@@ -43,4 +43,6 @@ export const getOperacoesMesApi = (id) => {
   return api.get(`/operacao/mes/${id}`);
 };
 
-
+export const getOperacoesTotaisApi = () => {
+  return api.get(`/operacao/totais`);
+};

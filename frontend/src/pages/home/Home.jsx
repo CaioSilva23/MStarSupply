@@ -13,17 +13,24 @@ import Divider from '@mui/material/Divider';
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import ChartBar from "../../components/ChartBar"
-import { getMercadoriasApi, getOperacoesMesApi } from '../../services/api';
+import PieChart from "../../components/PieChart"
+import { getMercadoriasApi, getOperacoesMesApi, getOperacoesTotaisApi, getMercadoriasByIdApi } from '../../services/api';
 import Loading from "../../components/Loading";
 
 
 export default function Home() {
   const [mercadorias, setMercadorias] = useState([]) 
+  const [mercadoriaAtual, setMercadoriaAtual] = useState([])
   const [operacoesMes, setOperacoesMEs] = useState([])
+  const [operacoesTotais, setOperacoesTotais] = useState([])
   const [id, setId] = useState("")
   const [loading, setLoading] = useState(true);
     
 
+
+  // const handreMercadoria ((event)=> {
+  //     mudarID(event.target.value);
+  // })
 
   const fetchMercadorias = async () => {
     try {
@@ -39,7 +46,6 @@ export default function Home() {
   const fetchOperacoesMes = async (id) => {
     try {
         const response = await getOperacoesMesApi(id);
-
         const formattedData = [
             ["Mes", "Entrada", "Saida"],
             ...response.data.map(item => [item.mes, item.entrada, item.saida])
@@ -50,12 +56,30 @@ export default function Home() {
     } catch (error) {
         console.error('Erro ao buscar mercadorias:', error);
     }
-};
+  };
+
+  const fetchOperacoesTotais = async () => {
+    try {
+        const response = await getOperacoesTotaisApi();
+
+        const formattedData = [
+            ["Mercadoria", "Entrada", "Saida"],
+            ...response.data.map(item => [item.mercadoria, item.entrada, item.saida])
+        ];
+
+        setOperacoesTotais(formattedData);
+        setLoading(false);
+    } catch (error) {
+        console.error('Erro ao buscar mercadorias:', error);
+    }
+  };
   const mudarID = (newValue) => {
-    setId(newValue);
+    setId(newValue.id);
+    setMercadoriaAtual(newValue.nome)
   };
   
   useEffect(()=> {
+    fetchOperacoesTotais();
     fetchMercadorias();
     fetchOperacoesMes(id);
   }, [id])
@@ -64,8 +88,6 @@ export default function Home() {
   if (loading) {
     return <Loading />;
   }
-
-  const nome = "TESTANDOOOOO"
 
   return (
    <>
@@ -85,12 +107,9 @@ export default function Home() {
                 options={mercadorias}
                 sx={{ width: 300 }}
                 value={id ? mercadorias.find(item => item.id === id) : null}
-
                 onChange={(event, newValue) => {
-                  mudarID(newValue ? newValue.id : "");
+                  mudarID(newValue ? newValue : "");
                 }} 
-                // onChange={(e, v) => setId(v.id)}
-                // value={mercadorias[0]}
                 getOptionLabel={(rows) => rows.nome || ""}
                 renderInput={(params) => (
                   <TextField {...params} size="small" label="Procurar mercadoria" />
@@ -110,47 +129,33 @@ export default function Home() {
             <Grid size={8}>
               <Card sx={{ height: 60 + "vh" }}>
                 <CardContent>
-                  <ChartBar data={operacoesMes} nome={nome}></ChartBar>
+                  <ChartBar data={operacoesMes} mes={true} nome={mercadoriaAtual}></ChartBar>
                 </CardContent>
               </Card>
             </Grid>
             <Grid size={4}>
             <Card sx={{ height: 60 + "vh" }}>
                 <CardContent>
+                  <PieChart></PieChart>
                 </CardContent>
               </Card>
             </Grid>
-          </Grid>
-      </Box>
-        <Grid/>
-    </Box>
-   </>
-   {/* <div className='bgColor'>
-    <Navbar/>
-    <Box height={70}/>
-      <Box sx={{ display: 'flex' }}>
-        <Sidenav />
-        <Box component="main" sx={{flexGrow: 1, p: 3}}>
-          <Box height={30}/>
-
-          <Grid container spacing={2}>
-            <Grid size={8}>
+        </Grid>
+        <Divider />
+        <br></br>
+        <Grid container spacing={2}>
+            <Grid size={12}>
               <Card sx={{ height: 60 + "vh" }}>
                 <CardContent>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid size={4}>
-            <Card sx={{ height: 60 + "vh" }}>
-                <CardContent>
+                  <ChartBar data={operacoesTotais} mes={false}></ChartBar>
                 </CardContent>
               </Card>
             </Grid>
           </Grid>
-          
-        </Box>
       </Box>
-      </div> */}
+      <Grid/>
+    </Box>
+   </>
    </>
   );
 }

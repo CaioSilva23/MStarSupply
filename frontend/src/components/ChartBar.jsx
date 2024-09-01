@@ -5,14 +5,15 @@ import jsPDF from "jspdf";
 import Button from "@mui/material/Button";
 
 
-export default function ChartBar(data, nome) {
+export default function ChartBar({data, mes, nome}) {
     const chartRef = useRef(null);
+
     const options = {
       chart: {
-        title: `Visao geral ${nome}`,
-        subtitle: "Relatorio de operacoes de entrada e saida de mercadorias.",
+          title: mes ? `Visão por mês: ${nome}` : 'Visão geral de todas as mercadorias',
+          subtitle: mes ? 'Relatório por mês de entrada e saída' : 'Relatório de operações de entrada e saída por mercadorias.',
       },
-    };
+  };
 
     const handleExportPDF = async () => {
     const chartElement = chartRef.current;
@@ -24,24 +25,28 @@ export default function ChartBar(data, nome) {
 
       // Cria um PDF com o jsPDF
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "PNG", 10, 10, 190, 100); // Ajuste as dimensões conforme necessário
+      pdf.addImage(imgData, "PNG", 10, 10, 190, 100); //dimensões
       pdf.save("grafico.pdf");
     }
   };
-{/*  */}
   return (
     <>
-    <div ref={chartRef}>
-      <Chart
-        chartType="Bar"
-        width="100%"
-        height="600px"
-        data={data.data}
-        options={options}
-      />
-      </div>
-      <Button variant="contained" onClick={handleExportPDF}>Exportar como PDF</Button>
-      {/* <button ></button> */}
-    </>
+    {data && data.length > 0 ? (
+        <>
+            <div ref={chartRef}>
+                <Chart
+                    chartType="Bar"
+                    width="100%"
+                    height="450px"
+                    data={data}
+                    options={options}
+                />
+            </div>
+            <Button variant="contained" onClick={handleExportPDF}>Exportar como PDF</Button>
+        </>
+    ) : (
+        <p>Nenhum dado disponível para mostrar</p>
+    )}
+</>
   );
 }

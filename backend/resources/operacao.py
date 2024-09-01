@@ -2,7 +2,7 @@ from flask import request
 from flask.views import MethodView
 from utils import db
 from flask_smorest import abort, Blueprint
-from models import OperacaoModel, OperacaoSchema, MercadoriaModel, EntradasSaidasMesSchema
+from models import OperacaoModel, OperacaoSchema, MercadoriaModel, EntradasSaidasMesSchema, OperacoesTotaisSchema
 
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from sqlalchemy import func, extract, case
@@ -45,9 +45,9 @@ class OperacaoList(MethodView):
 
         return operacao, 201
 
+
 @blp.route("/operacao/mes/<int:id>")
 class OperacoesPorMes(MethodView):
-    
     @blp.response(200, EntradasSaidasMesSchema(many=True))
     def get(self, id):
         dados = db.session.query(
@@ -63,9 +63,31 @@ class OperacoesPorMes(MethodView):
             )).label('saida')
         ).filter(
             OperacaoModel.mercadoria_id == id,
-            # func.strftime('%Y', Operacao.data_hora) == str(ano)  # Filtra pelo ano
         ).group_by(
             func.strftime('%m', OperacaoModel.data_hora)
         ).all()
 
+        return dados, 200
+
+
+@blp.route("/operacao/totais")
+class OperacoesTotais(MethodView):
+    @blp.response(200, EntradasSaidasMesSchema(many=True))
+    def get(self):
+
+        dados = db.session.query(
+            MercadoriaModel.nome.label('mercadoria'),
+            func.sum(case(
+                (OperacaoModel.tipo_operacao == 'entrada', OperacaoModel.quantidade),
+                else_=0
+            )).label('entrada'),
+            func.sum(case(
+                (OperacaoModel.tipo_operacao == 'saida', OperacaoModel.quantidade),
+                else_=0
+            )).label('saida')
+        ).join(
+            MercadoriaModel, OperacaoModel.mercadoria_id == MercadoriaModel.id
+        ).group_by(
+            MercadoriaModel.nome
+        ).all()
         return dados, 200

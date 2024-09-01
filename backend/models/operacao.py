@@ -55,3 +55,8 @@ class EntradasSaidasMesSchema(Schema):
     mercadoria = fields.Str()
     entrada = fields.Int()
     saida = fields.Int()
+
+
+class OperacoesTotaisSchema(Schema):
+    entrada = fields.Int()
+    saida = fields.Int()
