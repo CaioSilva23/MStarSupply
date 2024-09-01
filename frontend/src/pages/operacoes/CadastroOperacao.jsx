@@ -21,9 +21,13 @@ export default function CadastrarOperacao({closeEvent, buscar}) {
   const [local, setLocal] = useState(null)
   const [dataHora, setDataHora] = useState(null)
   const [mercadoriaId, setMercadoriaId] = useState(null)
+  const [qtdDisponivel, setQtdDisponivel] = useState(null)
   const [mercadorias, setMercadorias] = useState([])
   const [loading, setLoading] = useState(true);
 
+  const handleMercadoria = (event) => {
+    setMercadoriaId(event.target.value)
+  };
 
   const cadastrar = async () => {
 
@@ -47,7 +51,7 @@ export default function CadastrarOperacao({closeEvent, buscar}) {
       buscar();
     } catch (error) {
         closeEvent();
-        Swal.fire("Erro!", "Erro ao tentar cadastrar a mercadoria, tente novamente.", "error");
+        Swal.fire("Erro!", error.response.data.message, "error");
     } finally {
     
     }
@@ -91,7 +95,7 @@ export default function CadastrarOperacao({closeEvent, buscar}) {
             id="demo-simple-select"
             value={mercadoriaId}
             label="Mercadoria"
-            onChange={(event) => setMercadoriaId(event.target.value)}
+            onChange={handleMercadoria}
             >
             {mercadorias.map((row) => (
                 <MenuItem key={row.id} value={row.id}>
@@ -99,6 +103,7 @@ export default function CadastrarOperacao({closeEvent, buscar}) {
                 </MenuItem>
             ))}
         </Select>
+        
     </FormControl>
     <FormControl fullWidth variant="outlined">
         <InputLabel id="demo-simple-select-label">Mercadoria</InputLabel>

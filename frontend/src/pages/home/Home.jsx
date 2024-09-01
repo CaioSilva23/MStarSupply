@@ -22,14 +22,7 @@ export default function Home() {
   const [operacoesMes, setOperacoesMEs] = useState([])
   const [id, setId] = useState("")
   const [loading, setLoading] = useState(true);
-
-  const data = [
-    ["Mes", "Entrada", "Saida"],
-    ["2014", 1000, 400],
-    ["2015", 1170, 460],
-    ["2016", 660, 1120],
-    ["2017", 1030, 540],
-  ];
+    
 
 
   const fetchMercadorias = async () => {
@@ -47,27 +40,21 @@ export default function Home() {
     try {
         const response = await getOperacoesMesApi(id);
 
-        // Transformar os dados recebidos no formato desejado
         const formattedData = [
             ["Mes", "Entrada", "Saida"],
             ...response.data.map(item => [item.mes, item.entrada, item.saida])
         ];
 
-        // Definir o estado com os dados formatados
         setOperacoesMEs(formattedData);
         setLoading(false);
     } catch (error) {
         console.error('Erro ao buscar mercadorias:', error);
-    } finally {
-        // Código opcional a ser executado independentemente do resultado
     }
 };
   const mudarID = (newValue) => {
     setId(newValue);
   };
-  // 
-  console.log(operacoesMes)
-
+  
   useEffect(()=> {
     fetchMercadorias();
     fetchOperacoesMes(id);
@@ -77,6 +64,8 @@ export default function Home() {
   if (loading) {
     return <Loading />;
   }
+
+  const nome = "TESTANDOOOOO"
 
   return (
    <>
@@ -121,7 +110,7 @@ export default function Home() {
             <Grid size={8}>
               <Card sx={{ height: 60 + "vh" }}>
                 <CardContent>
-                  <ChartBar data={operacoesMes}></ChartBar>
+                  <ChartBar data={operacoesMes} nome={nome}></ChartBar>
                 </CardContent>
               </Card>
             </Grid>

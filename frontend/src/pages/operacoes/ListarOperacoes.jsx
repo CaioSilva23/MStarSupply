@@ -33,43 +33,6 @@ const style = {
     p: 4,
   };
 
-const columns = [
-  {
-    id: 'tipo_operacao',
-    label: 'Tipo de Operacao',
-    minWidth: 170,
-    align: 'left',
-  },  
-  {
-    id: 'mercadoria_id',
-    label: 'Mercadoria',
-    minWidth: 170,
-    align: 'left',
-  },  
-  {
-    id: 'quantidade',
-    label: 'Quantidade',
-    minWidth: 170,
-    align: 'left',
-  },
-  {
-    id: 'local',
-    label: 'Local',
-    minWidth: 170,
-    align: 'left',
-  },
-  {
-    id: 'data_hora',
-    label: 'Data e hora',
-    minWidth: 170,
-    align: 'left',
-  },
-  {
-    label: 'Ações',
-    minWidth: 170,
-    align: 'left',
-  },
-];
 
 function formatDateTime(dateTimeString) {
   const date = new Date(dateTimeString);
@@ -103,11 +66,12 @@ export default function ListarMercadorias() {
   };
 
   const filterData = (v) => {
-    if (v) {
-      setOperacoes([v]);
+
+    if (v){
+      const dadosFiltrados = operacoes.filter(item => item.tipo_operacao.includes(v.toLowerCase()));
+      setOperacoes(dadosFiltrados)
     } else {
-        setOperacoes([]);
-        fetchOperacoes();
+      fetchOperacoes();
     }
   };
 
@@ -156,12 +120,12 @@ export default function ListarMercadorias() {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
-              options={operacoes}
+              options={["ENTRADA", "SAIDA"]}
               sx={{ width: 300 }}
               onChange={(e, v) => filterData(v)}
-              getOptionLabel={(rows) => rows.id || ""}
+              // getOptionLabel={(rows) => rows.id || ""}
               renderInput={(params) => (
-                <TextField {...params} size="small" label="Procurar mercadoria" />
+                <TextField {...params} size="small" label="Filtrar operações" />
               )}
             />
             <Typography
@@ -176,63 +140,30 @@ export default function ListarMercadorias() {
           <Box height={10} />
       <TableContainer sx={{ maxHeight: 400 }}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Tipo de Operação</TableCell>
+            <TableCell align="left">Mercadoria</TableCell>
+            <TableCell align="left">Quantidade</TableCell>
+            <TableCell align="left">Local</TableCell>
+            <TableCell align="left">Data e hora</TableCell>
+          </TableRow>
+        </TableHead>
           <TableBody>
-            {operacoes
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow 
-                  hover role="checkbox" 
-                  tabIndex={-1}
-                  style={{
-                    backgroundColor: row.tipo_operacao === 'entrada' ? '#d0f0c0' : row.tipo_operacao === 'saida' ? '#f4cccc' : 'inherit'
-                  }} >
-                    <TableCell key={row.id} align="left" >
-                        {row.tipo_operacao.toUpperCase()}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.mercadoria_id}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.quantidade}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {row.local}
-                    </TableCell>
-                    <TableCell key={row.id} align="left">
-                        {formatDateTime(row.data_hora)}
-                    </TableCell>
-                    <TableCell align="left">
-                          <Stack spacing={2} direction="row">
-                            <EditIcon
-                              style={{
-                                fontSize: "20px",
-                                color: "blue",
-                                cursor: "pointer",
-                              }}
-                              className="cursor-pointer"
-                              // onClick={() => {
-                              //     editData(row)
-                              // }}
-                            />
-                          </Stack>
-                        </TableCell>
-                  </TableRow>
-                );
-              })}
+          {operacoes.map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.tipo_operacao.toUpperCase()}
+                </TableCell>
+                <TableCell align="left">{row.mercadoria_id}</TableCell>
+                <TableCell align="left">{row.quantidade}</TableCell>
+                <TableCell align="left">{row.local}</TableCell>
+                <TableCell align="left">{formatDateTime(row.data_hora)}</TableCell>
+              </TableRow>
+          ))}
           </TableBody>
         </Table>
       </TableContainer>
