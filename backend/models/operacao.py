@@ -25,10 +25,18 @@ class OperacaoModel(db.Model):
         self.local = local
         self.mercadoria_id = mercadoria_id
 
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
+    def save_to_db(self, mercadoria):
+        try:
+            if self.tipo_operacao == "entrada":
+                mercadoria.quantidade += self.quantidade
+            else:
+                mercadoria.quantidade -= self.quantidade
 
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
 
 class OperacaoSchema(Schema):
     id = fields.Int(dump_only=True)

@@ -11,6 +11,7 @@ class MercadoriaModel(db.Model):
     fabricante = db.Column(db.String(100), nullable=False)
     tipo = db.Column(db.String(100), nullable=False)
     descricao = db.Column(db.Text, nullable=False)
+    quantidade = db.Column(db.Integer, nullable=True, default=0)
 
     operacoes = db.relationship('OperacaoModel', backref='mercadoria', lazy=True)
 
@@ -44,6 +45,7 @@ class MercadoriaSchema(Schema):
     fabricante = fields.Str(required=True)
     tipo = fields.Str(required=True)
     descricao = fields.Str(required=True)
+    quantidade = fields.Int(dump_only=True)
 
 
 class MercadoriaUpdateSchema(Schema):

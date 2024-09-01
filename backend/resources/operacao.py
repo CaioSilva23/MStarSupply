@@ -34,8 +34,12 @@ class OperacaoList(MethodView):
     
         if not mercadoria:
             abort(400, message=f"Mercadoria com o id {id_mercadoria} nao existe.")
+
+        if operacao.tipo_operacao == "saida":
+            if operacao.quantidade > mercadoria.quantidade:
+                abort(400, message=f"Quantidade indisponivel, tem apenas {mercadoria.quantidade}")
         try:
-            operacao.save_to_db()
+            operacao.save_to_db(mercadoria)
         except SQLAlchemyError:
             return {"msg": "Ocorreu um erro ao salvar a operacao."}, 500
 
