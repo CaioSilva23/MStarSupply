@@ -85,10 +85,6 @@ export default function Home() {
   }, [id])
 
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
    <>
    <>

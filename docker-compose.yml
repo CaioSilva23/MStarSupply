@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  db:
+    container_name: flask_postgres
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+        - ./backend/.env
+    ports:
+        - "${POSTGRES_PORT}:5432"
+    volumes:
+        - pg_flask2:/var/lib/postgresql/data
+
   flask:
     build: ./backend
     container_name: flask_backend
@@ -12,16 +23,14 @@ services:
       - ./backend:/app
     depends_on:
       - db
-  db:
-    container_name: flask_postgres
-    image: postgres:latest
-    restart: unless-stopped
-    env_file:
-        - ./backend/.env
+
+  react:
+    build: ./frontend
+    container_name: react_frontend
     ports:
-        - "${POSTGRES_PORT}:5432"
+      - "3000:3000"
     volumes:
-        - pg_flask2:/var/lib/postgresql/data
+        - ./frontend/:/app
 
 volumes:
   pg_flask2:
