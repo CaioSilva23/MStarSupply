@@ -1,6 +1,22 @@
-# FullStack Application
+<div align="center"> 
+  <h1 align="center">MStarSupply</h1>
+</div>
 
-FullStack Application
+<p align="center">
+  <img alt="Principal linguagem do projeto" src="https://img.shields.io/github/languages/top/caiocslvb/fullstack-application" />
+  <img alt="Quantidade de linguagens utilizadas" src="https://img.shields.io/github/languages/count/caiocslvb/fullstack-application" />
+  <img alt="Tamanho do repositório" src="https://img.shields.io/github/repo-size/caiocslvb/fullstack-application" />
+</p>
+
+
+<p align="center">
+  <img alt="Home1" src="backend/docs/static/1.png" width=250>
+  <img alt="Home2" src="backend/docs/static/2.png" width=250>
+  <img alt="Home3" src="backend/docs/static/3.png" width=250>
+  <img alt="Home4" src="backend/docs/static/4.png" width=250>
+  <img alt="Home4" src="backend/docs/static/5.png" width=250>
+</p>
+
 
 ### Dependencies
 
