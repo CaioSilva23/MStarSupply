@@ -30,3 +30,17 @@ CREATE TABLE IF NOT EXISTS operacao (
     mercadoria_id INTEGER NOT NULL,
     FOREIGN KEY (mercadoria_id) REFERENCES mercadoria (id)
 );
+
+
+-- insert mercadorias
+INSERT INTO mercadoria (nome, numero_registro, fabricante, tipo, descricao) VALUES
+('iPhone 14 Pro', 'REG-001', 'Apple', 'Smartphone', 'Smartphone Apple'),
+('Samsung Galaxy S22', 'REG-002', 'Samsung', 'Smartphone', 'Smartphone Android'),
+('PlayStation 5', 'REG-003', 'Sony', 'Console de Jogos', 'Console de videogame'),
+('Dell XPS 13', 'REG-004', 'Dell', 'Laptop', 'Laptop'),
+('MacBook Pro 16"', 'REG-005', 'Apple', 'Laptop', 'Laptop'),
+('AirPods Pro', 'REG-006', 'Apple', 'Fones de Ouvido', 'Fones de ouvido'),
+('Kindle Paperwhite', 'REG-007', 'Amazon', 'E-reader', 'Leitor de e-books'),
+('Sony WH-1000XM4', 'REG-008', 'Sony', 'Fones de Ouvido', 'Fones de ouvido'),
+('NVIDIA GeForce RTX 3080', 'REG-009', 'NVIDIA', 'Placa de Vídeo', 'Placa de vídeo'),
+('GoPro HERO10', 'REG-010', 'GoPro', 'Câmera de Ação', 'Câmera compacta');

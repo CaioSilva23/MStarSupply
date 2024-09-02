@@ -55,7 +55,7 @@ class OperacaoModel(db.Model):
         ).group_by(
             func.to_char(self.data_hora, 'MM'),
             MercadoriaModel.nome
-        ).all()
+        ).order_by("mes").all()
 
         return dados
 

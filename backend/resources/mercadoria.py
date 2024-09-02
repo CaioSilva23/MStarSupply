@@ -54,7 +54,7 @@ class Mercadoria(MethodView):
 class MercadoriaList(MethodView):
     @blp.response(200, MercadoriaSchema(many=True))
     def get(self):
-        return MercadoriaModel.query.all()
+        return MercadoriaModel.query.order_by("id")
     
     @blp.arguments(MercadoriaSchema)
     @blp.response(201, MercadoriaSchema)
