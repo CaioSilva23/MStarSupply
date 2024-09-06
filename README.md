@@ -1,7 +1,7 @@
 <div align="center"> 
   <h1 align="center">MStarSupply</h1>
 </div>
-
+<p>O projeto visa fornecer uma solução para a gestão de mercadorias, permitindo o controle de entradas e saídas, além do registro detalhado de cada item. O sistema inclui ferramentas para realizar análises gráficas, oferecendo insights visuais sobre o fluxo de mercadorias ao longo do tempo, auxiliando na tomada de decisões estratégicas e no monitoramento de estoque.</p>
 <p align="center">
   <img alt="Principal linguagem do projeto" src="https://img.shields.io/github/languages/top/caiocslvb/fullstack-application" />
   <img alt="Quantidade de linguagens utilizadas" src="https://img.shields.io/github/languages/count/caiocslvb/fullstack-application" />
