@@ -54,5 +54,5 @@ Após preparar seu ambiente e seu virtualenv, siga os passos:
 Obs: é necessário ter docker e docker compose instalados na máquina
 
 #### Clone o projeto e execute os comandos abaixo
-* `cd fullstack-application`
+* `cd MStarSupply`
 * `docker compose up`
